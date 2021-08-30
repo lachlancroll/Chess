@@ -4,35 +4,35 @@ import java.lang.Math.*;
 
 public class CheckPaths {
 	
-	public static boolean checkCheckWhite(String[] boardArr) {
+	public static boolean checkCheckWhite(int[] boardArr) {
 		int kingPos = 0;
 		for (int i = 0; i < 64; i ++) {
-			if (boardArr[i] == "wK") {
+			if (boardArr[i] == 110) {
 				kingPos = i;
 			}
 		}
 		for (int i = 0; i < 64; i++) {
-			if (boardArr[i].equals("bk")) {
+			if (boardArr[i] == 203) {
 				if (CheckPaths.knightPath(false, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
-			} else if (boardArr[i].equals("bp")) {
+			} else if (boardArr[i] == 21) {
 				if (CheckPaths.blackPawnPath(false, boardArr, i, kingPos) == true){
 					return true;
 				}
-			} else if (boardArr[i].equals("br")) {
+			} else if (boardArr[i] == 25) {
 				if (CheckPaths.rookPath(false, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
-			} else if (boardArr[i].equals("bb")) {
+			} else if (boardArr[i] == 230) {
 				if (CheckPaths.bishopPath(false, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
-			} else if (boardArr[i].equals("bq")) {
+			} else if (boardArr[i] == 29) {
 				if (CheckPaths.rookPath(false, false, boardArr, i, kingPos) == true || CheckPaths.bishopPath(false, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
-			} else if (boardArr[i].equals("bK")) {
+			} else if (boardArr[i] == 210) {
 				if (CheckPaths.kingPath(false, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
@@ -41,36 +41,36 @@ public class CheckPaths {
 		return false;
 	}
 	
-	public static boolean checkCheckBlack(String[] boardArr) {
+	public static boolean checkCheckBlack(int[] boardArr) {
 		int kingPos = 0;
 		for (int i = 0; i < 64; i ++) {
-			if (boardArr[i].equals("bK")) {
+			if (boardArr[i] == 210) {
 				kingPos = i;
 			}
 		}
 		
 		for (int i = 0; i < 64; i++) {
-			if (boardArr[i].equals("wk")) {
+			if (boardArr[i] == 103) {
 				if (CheckPaths.knightPath(true, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
-			} else if (boardArr[i].equals("wp")) {
+			} else if (boardArr[i] == 11) {
 				if (CheckPaths.pawnPath(false, boardArr, i, kingPos) == true){
 					return true;
 				}
-			} else if (boardArr[i].equals("wr")) {
+			} else if (boardArr[i] == 15) {
 				if (CheckPaths.rookPath(true, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
-			} else if (boardArr[i].equals("wb")) {
+			} else if (boardArr[i] == 130) {
 				if (CheckPaths.bishopPath(true, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
-			} else if (boardArr[i].equals("wq")) {
+			} else if (boardArr[i] == 19) {
 				if (CheckPaths.rookPath(true, false, boardArr, i, kingPos) == true || CheckPaths.bishopPath(true, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
-			} else if (boardArr[i].equals("wK")) {
+			} else if (boardArr[i] == 110) {
 				if (CheckPaths.kingPath(true, false, boardArr, i, kingPos) == true) {
 					return true;
 				}
@@ -79,12 +79,12 @@ public class CheckPaths {
 		return false;
 	}
 	
-	public static boolean putWhiteCheck(int oldSquare, int newSquare, String[]boardArr) {
+	public static boolean putWhiteCheck(int oldSquare, int newSquare, int[]boardArr) {
 		boolean isCheck = false;
-		String converter = boardArr[oldSquare];
-		String converter2 = boardArr[newSquare];
-		boardArr[oldSquare] = "o";
-		boardArr[newSquare] = "wq";
+		int converter = boardArr[oldSquare];
+		int converter2 = boardArr[newSquare];
+		boardArr[oldSquare] = 0;
+		boardArr[newSquare] = 19;
 		if (checkCheckWhite(boardArr) == true) {
 				isCheck = true;
 		}
@@ -97,12 +97,12 @@ public class CheckPaths {
 		return false;
 	}
 	
-	public static boolean putBlackCheck(int oldSquare, int newSquare, String[]boardArr) {
+	public static boolean putBlackCheck(int oldSquare, int newSquare, int[]boardArr) {
 		boolean isCheck = false;
-		String converter = boardArr[oldSquare];
-		String converter2 = boardArr[newSquare];
-		boardArr[oldSquare] = "o";
-		boardArr[newSquare] = "bq";
+		int converter = boardArr[oldSquare];
+		int converter2 = boardArr[newSquare];
+		boardArr[oldSquare] = 0;
+		boardArr[newSquare] = 29;
 		if (checkCheckBlack(boardArr) == true) {
 				isCheck = true;
 		}
@@ -115,7 +115,7 @@ public class CheckPaths {
 		return false;
 	}
 	
-	public static boolean knightPath(boolean isWhite, boolean check, String[] boardArr, int oldSquare, int newSquare) {
+	public static boolean knightPath(boolean isWhite, boolean check, int[] boardArr, int oldSquare, int newSquare) {
 		if ((newSquare != (oldSquare + 17)) && (newSquare != (oldSquare - 17)) && (newSquare != (oldSquare + 15)) && (newSquare != (oldSquare - 15)) && (newSquare != (oldSquare + 6)) && (newSquare != (oldSquare - 6)) && (newSquare != (oldSquare + 10)) && (newSquare != (oldSquare - 10))) {
 			return false;
 		}
@@ -138,13 +138,13 @@ public class CheckPaths {
 		}
 		
 		if (isWhite == true) {
-			if (boardArr[newSquare] == "o" || boardArr[newSquare] == "bp" || boardArr[newSquare] == "br" ||boardArr[newSquare] == "bb" ||boardArr[newSquare] == "bk" ||boardArr[newSquare] == "bq" ||boardArr[newSquare] == "bK") {
+			if (boardArr[newSquare] == 0 || boardArr[newSquare] == 21 || boardArr[newSquare] == 25 ||boardArr[newSquare] == 230 ||boardArr[newSquare] == 203 ||boardArr[newSquare] == 29 ||boardArr[newSquare] == 210) {
 				isLegal = true;
 			} else {
 				isLegal = false;
 			}
 		} else if (isWhite == false) {
-			if (boardArr[newSquare] == "o" || boardArr[newSquare] == "wp" || boardArr[newSquare] == "wr" ||boardArr[newSquare] == "wb" ||boardArr[newSquare] == "wk" ||boardArr[newSquare] == "wq" ||boardArr[newSquare] == "wK") {
+			if (boardArr[newSquare] == 0 || boardArr[newSquare] == 11 || boardArr[newSquare] == 15 ||boardArr[newSquare] == 130 ||boardArr[newSquare] == 103 ||boardArr[newSquare] == 19 ||boardArr[newSquare] == 110) {
 				isLegal = true;
 			} else {
 				isLegal = false;
@@ -187,7 +187,7 @@ public class CheckPaths {
 		return false;
 	}
 	
-	public static boolean kingPath(boolean isWhite, boolean check, String[] boardArr, int oldSquare, int newSquare) {
+	public static boolean kingPath(boolean isWhite, boolean check, int[] boardArr, int oldSquare, int newSquare) {
 		int col = oldSquare % 8;
 		int row = oldSquare / 8;
 		boolean isLegal = false;
@@ -197,13 +197,13 @@ public class CheckPaths {
 		}
 		
 		if (isWhite == true) {
-			if (boardArr[newSquare] == "o" || boardArr[newSquare] == "bp" || boardArr[newSquare] == "br" ||boardArr[newSquare] == "bb" ||boardArr[newSquare] == "bk" ||boardArr[newSquare] == "bq" ||boardArr[newSquare] == "bK") {
+			if (boardArr[newSquare] == 0 || boardArr[newSquare] == 21 || boardArr[newSquare] == 25 ||boardArr[newSquare] == 230 ||boardArr[newSquare] == 203 ||boardArr[newSquare] == 29 ||boardArr[newSquare] == 210) {
 				isLegal = true;
 			} else {
 				return false;
 			}
 		} else if (isWhite == false) {
-			if (boardArr[newSquare] == "o" || boardArr[newSquare] == "wp" || boardArr[newSquare] == "wr" ||boardArr[newSquare] == "wb" ||boardArr[newSquare] == "wk" ||boardArr[newSquare] == "wq" ||boardArr[newSquare] == "wK") {
+			if (boardArr[newSquare] == 0 || boardArr[newSquare] == 11 || boardArr[newSquare] == 15 ||boardArr[newSquare] == 130 ||boardArr[newSquare] == 103 ||boardArr[newSquare] == 19 ||boardArr[newSquare] == 110) {
 				isLegal = true;
 			} else {
 				return false;
@@ -213,10 +213,10 @@ public class CheckPaths {
 		if (check == true) {
 		if (isWhite == true) {
 			boolean isCheck = false;
-			String converter = boardArr[oldSquare];
-			String converter2 = boardArr[newSquare];
-			boardArr[oldSquare] = "o";
-			boardArr[newSquare] = "wK";
+			int converter = boardArr[oldSquare];
+			int converter2 = boardArr[newSquare];
+			boardArr[oldSquare] = 0;
+			boardArr[newSquare] = 110;
 			if (checkCheckWhite(boardArr) == true) {
 					isCheck = true;
 			}
@@ -228,10 +228,10 @@ public class CheckPaths {
 			}
 		} else if (isWhite == false) {
 			boolean isCheck = false;
-			String converter = boardArr[oldSquare];
-			String converter2 = boardArr[newSquare];
-			boardArr[oldSquare] = "o";
-			boardArr[newSquare] = "bK";
+			int converter = boardArr[oldSquare];
+			int converter2 = boardArr[newSquare];
+			boardArr[oldSquare] = 0;
+			boardArr[newSquare] = 210;
 			if (checkCheckBlack(boardArr) == true) {
 					isCheck = true;
 			}
@@ -246,17 +246,17 @@ public class CheckPaths {
 		
 		if (isLegal == true) {
 			if (isWhite == true) {
-				if (newSquare == 58 && oldSquare == 60 && Board.wKingMoved == false && Board.wRookMovedL == false && Board.wCastled == false && boardArr[57].equals("o") && boardArr[58].equals("o") && boardArr[59].equals("o")) {
+				if (newSquare == 58 && oldSquare == 60 && Board.wKingMoved == false && Board.wRookMovedL == false && Board.wCastled == false && boardArr[57] == 0 && boardArr[58] == 0 && boardArr[59] == 0) {
 					return true;
 				}
-				if (newSquare == 62 && oldSquare == 60 && Board.wKingMoved == false && Board.wRookMovedR == false && Board.wCastled == false && boardArr[62].equals("o") && boardArr[61].equals("o")) {
+				if (newSquare == 62 && oldSquare == 60 && Board.wKingMoved == false && Board.wRookMovedR == false && Board.wCastled == false && boardArr[62] == 0 && boardArr[61] == 0) {
 					return true;
 				}
 			} else if (isWhite == false){
-				if (newSquare == 2 && oldSquare == 4 && Board.bKingMoved == false && Board.bRookMovedL == false && Board.bCastled == false && boardArr[2].equals("o") && boardArr[3].equals("o") && boardArr[1].equals("o")) {
+				if (newSquare == 2 && oldSquare == 4 && Board.bKingMoved == false && Board.bRookMovedL == false && Board.bCastled == false && boardArr[2] == 0 && boardArr[3] == 0 && boardArr[1] == 0) {
 					return true;
 				}
-				if (newSquare == 6 && oldSquare == 4 && Board.bKingMoved == false && Board.bRookMovedR == false && Board.bCastled == false && boardArr[6].equals("o") && boardArr[5].equals("o")) {
+				if (newSquare == 6 && oldSquare == 4 && Board.bKingMoved == false && Board.bRookMovedR == false && Board.bCastled == false && boardArr[6] == 0 && boardArr[5] == 0) {
 					return true;
 				}
 			}
@@ -282,12 +282,12 @@ public class CheckPaths {
 		return false;
 	}
 	
-	public static boolean pawnPath(boolean check, String[] boardArr, int oldSquare, int newSquare) {
+	public static boolean pawnPath(boolean check, int[] boardArr, int oldSquare, int newSquare) {
 		
 		if (newSquare != oldSquare - 8 && newSquare != oldSquare - 7 && newSquare != oldSquare - 9 && newSquare != oldSquare - 16) {
 			return false;
 		}
-		if ( boardArr[newSquare] == "wp" || boardArr[newSquare] == "wr" ||boardArr[newSquare] == "wb" ||boardArr[newSquare] == "wk" ||boardArr[newSquare] == "wq" ||boardArr[newSquare] == "wK") {
+		if ( boardArr[newSquare] == 11 || boardArr[newSquare] == 15 ||boardArr[newSquare] == 130 ||boardArr[newSquare] == 103 ||boardArr[newSquare] == 19 ||boardArr[newSquare] == 110) {
 			return false;
 		}
 		
@@ -300,10 +300,10 @@ public class CheckPaths {
 		int col = oldSquare % 8;
 		int row = oldSquare / 8;
 		
-		if (boardArr[newSquare].equals("o")) {
+		if (boardArr[newSquare] == 0) {
 			if (newSquare == (oldSquare - 8)) {
 				return true;
-			} else if (row == 6 && newSquare == (oldSquare - 16)) {
+			} else if (row == 6 && boardArr[oldSquare - 8] == 0 && newSquare == (oldSquare - 16)) {
 				return true;
 			} else {
 				return false;
@@ -322,13 +322,13 @@ public class CheckPaths {
 	}
 	
 	//BLACK PATH
-	public static boolean blackPawnPath(boolean check, String[] boardArr, int oldSquare, int newSquare) {
+	public static boolean blackPawnPath(boolean check, int[] boardArr, int oldSquare, int newSquare) {
 		
 		if (newSquare != oldSquare + 8 && newSquare != oldSquare + 7 && newSquare != oldSquare + 9 && newSquare != oldSquare + 16) {
 			return false;
 		}
 		
-		if (boardArr[newSquare] == "bp" || boardArr[newSquare] == "br" ||boardArr[newSquare] == "bb" ||boardArr[newSquare] == "bk" ||boardArr[newSquare] == "bq" ||boardArr[newSquare] == "bK") {
+		if (boardArr[newSquare] == 21 || boardArr[newSquare] == 25 ||boardArr[newSquare] == 230 ||boardArr[newSquare] == 203 ||boardArr[newSquare] == 29 ||boardArr[newSquare] == 210) {
 			return false;
 		}
 		
@@ -341,10 +341,10 @@ public class CheckPaths {
 		int col = oldSquare % 8;
 		int row = oldSquare / 8;
 		
-		if (boardArr[newSquare].equals("o")) {
+		if (boardArr[newSquare] == 0) {
 			if (newSquare == (oldSquare + 8)) {
 				return true;
-			} else if (row == 1 && newSquare == (oldSquare + 16)) {
+			} else if (row == 1 && boardArr[oldSquare + 8] == 0 && newSquare == (oldSquare + 16)) {
 				return true;
 			} else {
 				return false;
@@ -362,7 +362,7 @@ public class CheckPaths {
 		}
 	}
 	
-	public static boolean rookPath(boolean isWhite, boolean check, String[] boardArr, int oldSquare, int newSquare) {
+	public static boolean rookPath(boolean isWhite, boolean check, int[] boardArr, int oldSquare, int newSquare) {
 
 		if ((newSquare % 8 != oldSquare % 8) && (newSquare / 8 != oldSquare / 8)) {
 			return false;
@@ -397,11 +397,11 @@ public class CheckPaths {
 		}
 		
 		if (isWhite == true) {
-			if (!(boardArr[newSquare] == "o" || boardArr[newSquare] == "bp" || boardArr[newSquare] == "br" ||boardArr[newSquare] == "bb" ||boardArr[newSquare] == "bk" ||boardArr[newSquare] == "bq" ||boardArr[newSquare] == "bK")) {
+			if (!(boardArr[newSquare] == 0 || boardArr[newSquare] == 21 || boardArr[newSquare] == 25 ||boardArr[newSquare] == 230 ||boardArr[newSquare] == 203 ||boardArr[newSquare] == 29 ||boardArr[newSquare] == 210)) {
 				return false;
 			}
 		} else if (isWhite == false) {
-			if (!(boardArr[newSquare] == "o" || boardArr[newSquare] == "wp" || boardArr[newSquare] == "wr" ||boardArr[newSquare] == "wb" ||boardArr[newSquare] == "wk" ||boardArr[newSquare] == "wq" ||boardArr[newSquare] == "wK")) {
+			if (!(boardArr[newSquare] == 0 || boardArr[newSquare] == 11 || boardArr[newSquare] == 15 ||boardArr[newSquare] == 130 ||boardArr[newSquare] == 103 ||boardArr[newSquare] == 19 ||boardArr[newSquare] == 110)) {
 				return false;
 			}
 		}
@@ -419,11 +419,11 @@ public class CheckPaths {
 		//finding max and min rows
 		
 		for (int i = 0; i < 8; i++) {
-			if (foundMinRow == false && !boardArr[(i*8) + col].equals("o") && ((i*8) + col) != oldSquare) {
+			if (foundMinRow == false && boardArr[(i*8) + col] != 0 && ((i*8) + col) != oldSquare) {
 				minRow = i;
 			} else if ((i*8) + col == oldSquare) {
 				foundMinRow = true;
-			} else if (foundMinRow == true && !boardArr[(i*8) + col].equals("o") && foundMaxRow == false) {
+			} else if (foundMinRow == true && boardArr[(i*8) + col] != 0 && foundMaxRow == false) {
 				maxRow = i;
 				foundMaxRow = true;
 			} else if (foundMaxRow == false && i == 7) {
@@ -434,11 +434,11 @@ public class CheckPaths {
 		
 		// finding min and max cols
 		for (int j = 0; j < 8; j++) {
-			if (foundMinCol == false && !boardArr[(row*8) + j].equals("o") && ((row*8) + j) < oldSquare) {
+			if (foundMinCol == false && boardArr[(row*8) + j] != 0 && ((row*8) + j) < oldSquare) {
 				minCol = j;
 			} else if (((row*8) + j) == oldSquare) {
 				foundMinCol = true;
-			} else if (foundMinCol == true && !boardArr[(row*8) + j].equals("o") && foundMaxCol == false) {
+			} else if (foundMinCol == true && boardArr[(row*8) + j] != 0 && foundMaxCol == false) {
 				maxCol = j;
 				foundMaxCol = true;
 			} else if (foundMaxCol == false && j == 7) {
@@ -458,7 +458,7 @@ public class CheckPaths {
 		return false;
 	}
 	
-	public static boolean bishopPath(boolean isWhite, boolean check, String[] boardArr, int oldSquare, int newSquare) {
+	public static boolean bishopPath(boolean isWhite, boolean check, int[] boardArr, int oldSquare, int newSquare) {
 		if (newSquare % 8 == oldSquare % 8 && newSquare / 8 == oldSquare / 8) {
 			return false;
 		}
@@ -500,21 +500,15 @@ public class CheckPaths {
 		
 		
 		if (isWhite == true) {
-			if (boardArr[newSquare] == "o" || boardArr[newSquare] == "bp" || boardArr[newSquare] == "br" ||boardArr[newSquare] == "bb" ||boardArr[newSquare] == "bk" ||boardArr[newSquare] == "bq" ||boardArr[newSquare] == "bK") {
-				isLegal = true;
-			} else {
-				isLegal = false;
+			if (!(boardArr[newSquare] == 0 || boardArr[newSquare] == 21 || boardArr[newSquare] == 25 ||boardArr[newSquare] == 230 ||boardArr[newSquare] == 203 ||boardArr[newSquare] == 29 ||boardArr[newSquare] == 210)) {
+				return false;
 			}
 		} else if (isWhite == false) {
-			if (boardArr[newSquare] == "o" || boardArr[newSquare] == "wp" || boardArr[newSquare] == "wr" ||boardArr[newSquare] == "wb" ||boardArr[newSquare] == "wk" ||boardArr[newSquare] == "wq" ||boardArr[newSquare] == "wK") {
-				isLegal = true;
-			} else {
-				isLegal = false;
+			if (!(boardArr[newSquare] == 0 || boardArr[newSquare] == 11 || boardArr[newSquare] == 15 ||boardArr[newSquare] == 130 ||boardArr[newSquare] == 103 ||boardArr[newSquare] == 19 ||boardArr[newSquare] == 110)) {
+				return false;
 			}
 		}
 		
-		if (isLegal == true) {
-			
 		//finding the row and col to start counting
 		ogcol = oldSquare % 8;
 		ogrow = oldSquare / 8;
@@ -532,7 +526,7 @@ public class CheckPaths {
 		while (row < 7 && col > 0 && haveMax == false) {
 			row++;
 			col--;
-			if (haveMax == false && !boardArr[(row*8)+ col].equals("o")) {
+			if (haveMax == false && boardArr[(row*8)+ col] != 0) {
 				maxRow = row;
 				minCol = col;
 				haveMax = true;
@@ -549,7 +543,7 @@ public class CheckPaths {
 		while (row > 0 && col < 7 && haveMin == false) {
 			row--;
 			col++;
-			if (haveMin == false && !boardArr[(row*8)+ col].equals("o")) {
+			if (haveMin == false && boardArr[(row*8)+ col] != 0) {
 				minRow = row;
 				maxCol = col;
 				haveMin = true;
@@ -567,7 +561,7 @@ public class CheckPaths {
 		while (row < 7 && col < 7) {
 			row++;
 			col++;
-			if (haveMax_ == false && !boardArr[(row*8)+ col].equals("o")) {
+			if (haveMax_ == false && boardArr[(row*8)+ col] != 0) {
 				maxRow_ = row;
 				maxCol_ = col;
 				haveMax_ = true;
@@ -584,7 +578,7 @@ public class CheckPaths {
 		while (row > 0 && col > 0) {
 			row--;
 			col--;
-			if (haveMin_ == false && !boardArr[(row*8)+ col].equals("o")) {
+			if (haveMin_ == false && boardArr[(row*8)+ col] != 0) {
 				minRow_ = row;
 				minCol_ = col;
 				haveMin_ = true;
@@ -655,7 +649,6 @@ public class CheckPaths {
 		
 		
 		// - 7 or - 9
-		}
 		return false;
 	}
 	
