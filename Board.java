@@ -16,19 +16,20 @@ public class Board extends JFrame implements ActionListener{
 	// fix checkmate which isn't working after a certain amount of moves
 	// need to stop ai from repeating turns
 	// need to checkCheck for castling so that you can't castle into check
+	// the AI keeps letting my pawns take stuff
 	
-	static ImageIcon pawn = new ImageIcon("white pawn.png");
-	static ImageIcon rook = new ImageIcon("white rook.png");
-	static ImageIcon bishop = new ImageIcon("white bishop.png");
-	static ImageIcon queen = new ImageIcon("white queen.png");
-	static ImageIcon knight = new ImageIcon("white knight.png");
-	static ImageIcon king = new ImageIcon("white king.png");
-	static ImageIcon Bpawn = new ImageIcon("black pawn.png");
-	static ImageIcon Brook = new ImageIcon("black rook.png");
-	static ImageIcon Bbishop = new ImageIcon("black bishop.png");
-	static ImageIcon Bqueen = new ImageIcon("black queen.png");
-	static ImageIcon Bknight = new ImageIcon("black knight.png");
-	static ImageIcon Bking = new ImageIcon("black king.png");
+	static final ImageIcon PAWN = new ImageIcon("white pawn.png");
+	static final ImageIcon ROOK = new ImageIcon("white rook.png");
+	static final ImageIcon BISHOP = new ImageIcon("white bishop.png");
+	static final ImageIcon QUEEN = new ImageIcon("white queen.png");
+	static final ImageIcon KNIGHT = new ImageIcon("white knight.png");
+	static final ImageIcon KING = new ImageIcon("white king.png");
+	static final ImageIcon BLACK_PAWN = new ImageIcon("black pawn.png");
+	static final ImageIcon BLACK_ROOK = new ImageIcon("black rook.png");
+	static final ImageIcon BLACK_BISHOP = new ImageIcon("black bishop.png");
+	static final ImageIcon BLACK_QUEEN = new ImageIcon("black queen.png");
+	static final ImageIcon BLACK_KNIGHT = new ImageIcon("black knight.png");
+	static final ImageIcon BLACK_KING = new ImageIcon("black king.png");
 	
 	static int countM = 2;
 	static int countB = 2;
@@ -74,16 +75,16 @@ public class Board extends JFrame implements ActionListener{
 	static boolean hasKnight = false;
 	static boolean hasKing = false;
 	
-	static boolean hasPawnB = false;
-	static boolean hasRookB = false;
-	static boolean hasBishopB = false;
-	static boolean hasQueenB = false;
-	static boolean hasKnightB = false;
-	static boolean hasKingB = false;
+	static boolean hasBlackPawn = false;
+	static boolean hasBlackRook = false;
+	static boolean hasBlackBishop = false;
+	static boolean hasBlackQueen = false;
+	static boolean hasBlackKnight = false;
+	static boolean hasBlackKing = false;
 	
 	boolean comp = false;
 	
-	static String[] boardArr = new String[64];
+	static int[] boardArr = new int[64];
 	static boolean canMove = false;
 	//change replacer to oldSquare
 	static int replacer;
@@ -129,34 +130,35 @@ public class Board extends JFrame implements ActionListener{
 
 		chooseComp.toFront();
 		
+		//103 knight 130 bishop
 		//setting up the board
 		for (int i = 0; i < 64; i++) {
 			if (i > 47 && i < 56) {
-				boardArr[i] = "wp";
+				boardArr[i] = 11;
 			} else if (i == 56 || i == 63) {
-				boardArr[i] = "wr";
+				boardArr[i] = 15;
 			} else if (i == 61 || i == 58){
-				boardArr[i] = "wb";
+				boardArr[i] = 130;
 			} else if (i == 59) {
-				boardArr[i] = "wq";
+				boardArr[i] = 19;
 			} else if (i == 57 || i == 62) {
-				boardArr[i] = "wk";
+				boardArr[i] = 103;
 			} else if (i == 60){
-				boardArr[i] = "wK";
+				boardArr[i] = 110;
 			} else if (i > 7 && i < 16) {
-				boardArr[i] = "bp";
+				boardArr[i] = 21;
 			} else if (i == 0 || i == 7) {
-				boardArr[i] = "br";
+				boardArr[i] = 25;
 			} else if (i == 1 || i == 6) {
-				boardArr[i] = "bk";
+				boardArr[i] = 203;
 			} else if (i == 2 || i == 5) {
-				boardArr[i] = "bb";
+				boardArr[i] = 230;
 			} else if (i == 3) {
-				boardArr[i] = "bq";
+				boardArr[i] = 29;
 			} else if (i == 4) {
-				boardArr[i] = "bK";
+				boardArr[i] = 210;
 			} else {
-				boardArr[i] = "o";
+				boardArr[i] = 0;
 			}
 				
 		}
@@ -177,30 +179,30 @@ public class Board extends JFrame implements ActionListener{
 					buttons[(i*8) + j].setBackground(dark);
 					buttons[(i*8) + j].setForeground(light);
 				}
-				if (boardArr[num].equals("wp")) {
-					buttons[num].setIcon(pawn);
-				} else if (boardArr[num].equals("wr")) {
-					buttons[num].setIcon(rook);
-				} else if (boardArr[num].equals("wb")) {
-					buttons[num].setIcon(bishop);
-				} else if (boardArr[num].equals("wq")) {
-					buttons[num].setIcon(queen);
-				} else if (boardArr[num].equals("wk")) {
-					buttons[num].setIcon(knight);
-				} else if (boardArr[num].equals("wK")) {
-					buttons[num].setIcon(king);
-				} else if (boardArr[num].equals("bp")) {
-					buttons[num].setIcon(Bpawn);
-				} else if (boardArr[num].equals("br")) {
-					buttons[num].setIcon(Brook);
-				} else if (boardArr[num].equals("bb")) {
-					buttons[num].setIcon(Bbishop);
-				} else if (boardArr[num].equals("bq")) {
-					buttons[num].setIcon(Bqueen);
-				} else if (boardArr[num].equals("bk")) {
-					buttons[num].setIcon(Bknight);
-				} else if (boardArr[num].equals("bK")) {
-					buttons[num].setIcon(Bking);
+				if (boardArr[num] == 11) {
+					buttons[num].setIcon(PAWN);
+				} else if (boardArr[num] == 15) {
+					buttons[num].setIcon(ROOK);
+				} else if (boardArr[num] == 130) {
+					buttons[num].setIcon(BISHOP);
+				} else if (boardArr[num] == 19) {
+					buttons[num].setIcon(QUEEN);
+				} else if (boardArr[num] == 103) {
+					buttons[num].setIcon(KNIGHT);
+				} else if (boardArr[num] == 110) {
+					buttons[num].setIcon(KING);
+				} else if (boardArr[num] == 21) {
+					buttons[num].setIcon(BLACK_PAWN);
+				} else if (boardArr[num] == 25) {
+					buttons[num].setIcon(BLACK_ROOK);
+				} else if (boardArr[num] == 230) {
+					buttons[num].setIcon(BLACK_BISHOP);
+				} else if (boardArr[num] == 29) {
+					buttons[num].setIcon(BLACK_QUEEN);
+				} else if (boardArr[num] == 203) {
+					buttons[num].setIcon(BLACK_KNIGHT);
+				} else if (boardArr[num] == 210) {
+					buttons[num].setIcon(BLACK_KING);
 				}
 				
 				buttons[(i*8) + j].addActionListener(this);
@@ -234,15 +236,15 @@ public class Board extends JFrame implements ActionListener{
 		rookB.addActionListener(this);
 		
 		if (isBlackPawn == true) {
-			queenB.setIcon(Bqueen);
-			rookB.setIcon(Brook);
-			knightB.setIcon(Bknight);
-			bishopB.setIcon(Bbishop);
+			queenB.setIcon(BLACK_QUEEN);
+			rookB.setIcon(BLACK_ROOK);
+			knightB.setIcon(BLACK_KNIGHT);
+			bishopB.setIcon(BLACK_BISHOP);
 		} else {
-			queenB.setIcon(queen);
-			rookB.setIcon(rook);
-			knightB.setIcon(knight);
-			bishopB.setIcon(bishop);
+			queenB.setIcon(QUEEN);
+			rookB.setIcon(ROOK);
+			knightB.setIcon(KNIGHT);
+			bishopB.setIcon(BISHOP);
 		}
 		
 		
@@ -279,13 +281,13 @@ public class Board extends JFrame implements ActionListener{
 	public void blackCheckMate() {
 		int countMove = 0;
 		for (int i = 0; i < 64; i++) {
-			if (boardArr[i].equals("bk")) {
+			if (boardArr[i] == 203) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.knightPath(false, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("bp")) {
+			} else if (boardArr[i] == 21) {
 				LinkedList<Integer> pawnMoves = new LinkedList<Integer>();
 				pawnMoves.add(i + 8);
 				pawnMoves.add(i + 7);
@@ -296,25 +298,25 @@ public class Board extends JFrame implements ActionListener{
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("br")) {
+			} else if (boardArr[i] == 25) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.rookPath(false, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("bb")) {
+			} else if (boardArr[i] == 230) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.bishopPath(false, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("bq")) {
+			} else if (boardArr[i] == 29) {
 				for (int j = 0; j < 64; j ++) {
 					if ((CheckPaths.bishopPath(false, true, boardArr, i, j) == true || CheckPaths.rookPath(false, false, boardArr, i, j) == true)){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("bK")) {
+			} else if (boardArr[i] == 210) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.kingPath(false, true, boardArr, i, j) == true){
 						countMove++;
@@ -339,37 +341,37 @@ public class Board extends JFrame implements ActionListener{
 	public static boolean boolBlackCheckMate() {
 		int countMove = 0;
 		for (int i = 0; i < 64; i++) {
-			if (boardArr[i].equals("bk")) {
+			if (boardArr[i] == 203) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.knightPath(false, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("bp")) {
+			} else if (boardArr[i] == 21) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.blackPawnPath(true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("br")) {
+			} else if (boardArr[i] == 25) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.rookPath(false, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("bb")) {
+			} else if (boardArr[i] == 230) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.bishopPath(false, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("bq")) {
+			} else if (boardArr[i] == 29) {
 				for (int j = 0; j < 64; j ++) {
 					if ((CheckPaths.bishopPath(false, true, boardArr, i, j) == true || CheckPaths.rookPath(false, false, boardArr, i, j) == true)){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("bK")) {
+			} else if (boardArr[i] == 210) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.kingPath(false, true, boardArr, i, j) == true){
 						countMove++;
@@ -378,88 +380,47 @@ public class Board extends JFrame implements ActionListener{
 			}
 		}
 		if (countMove == 0) {
+			System.out.println("yes");
 			return true;
 		} else {
 			return false;
 		}
 	}
-
-	public static int countMoves(int oldSquare){
-		int counter = 0;
-		if (boardArr[oldSquare].equals("bp")) {
-			for (int i = 0; i < 64; i++) {
-				if (CheckPaths.blackPawnPath(true, boardArr, oldSquare, i)) {
-					counter++;
-				}
-			}
-		} else if (boardArr[oldSquare].equals("bb")) {
-			for (int i = 0; i < 64; i++) {
-				if (CheckPaths.bishopPath(false, true, boardArr, oldSquare, i)) {
-					counter++;
-				}
-			}
-		} else if (boardArr[oldSquare].equals("br")) {
-			for (int i = 0; i < 64; i++) {
-				if (CheckPaths.rookPath(false, true, boardArr, oldSquare, i)) {
-					counter++;
-				}
-			}
-		} else if (boardArr[oldSquare].equals("bk")) {
-			for (int i = 0; i < 64; i++) {
-				if (CheckPaths.knightPath(false, true, boardArr, oldSquare, i)) {
-					counter++;
-				}
-			}
-		} else if (boardArr[oldSquare].equals("bK")) {
-			for (int i = 0; i < 64; i++) {
-				if (CheckPaths.kingPath(false, true, boardArr, oldSquare, i)) {
-					counter++;
-				}
-			}
-		} else if (boardArr[oldSquare].equals("bq")) {
-			for (int i = 0; i < 64; i++) {
-				if (CheckPaths.bishopPath(false, true, boardArr, oldSquare, i) || CheckPaths.rookPath(false, true, boardArr, oldSquare, i)) {
-					counter++;
-				}
-			}
-		}
-		return counter;
-	}
 		
 	public void whiteCheckMate() {
 		int countMove = 0;
 		for (int i = 0; i < 64; i++) {
-			if (boardArr[i].equals("wk")) {
+			if (boardArr[i] == 103) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.knightPath(true, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wp")) {
+			} else if (boardArr[i] == 11) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.pawnPath(true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wr")) {
+			} else if (boardArr[i] == 15) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.rookPath(true, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wb")) {
+			} else if (boardArr[i] == 130) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.bishopPath(true, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wq")) {
+			} else if (boardArr[i] == 19) {
 				for (int j = 0; j < 64; j ++) {
 					if ((CheckPaths.bishopPath(true, true, boardArr, i, j) == true || CheckPaths.rookPath(true, false, boardArr, i, j) == true)){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wK")) {
+			} else if (boardArr[i] == 110) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.kingPath(true, true, boardArr, i, j) == true){
 						countMove++;
@@ -484,37 +445,37 @@ public class Board extends JFrame implements ActionListener{
 	public static boolean boolWhiteCheckMate() {
 		int countMove = 0;
 		for (int i = 0; i < 64; i++) {
-			if (boardArr[i].equals("wk")) {
+			if (boardArr[i] == 103) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.knightPath(true, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wp")) {
+			} else if (boardArr[i] == 11) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.pawnPath(true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wr")) {
+			} else if (boardArr[i] == 15) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.rookPath(true, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wb")) {
+			} else if (boardArr[i] == 130) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.bishopPath(true, true, boardArr, i, j) == true){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wq")) {
+			} else if (boardArr[i] == 19) {
 				for (int j = 0; j < 64; j ++) {
 					if ((CheckPaths.bishopPath(true, true, boardArr, i, j) == true || CheckPaths.rookPath(true, false, boardArr, i, j) == true)){
 						countMove++;
 					}
 				}
-			} else if (boardArr[i].equals("wK")) {
+			} else if (boardArr[i] == 110) {
 				for (int j = 0; j < 64; j ++) {
 					if (CheckPaths.kingPath(true, true, boardArr, i, j) == true){
 						countMove++;
@@ -531,332 +492,222 @@ public class Board extends JFrame implements ActionListener{
 	
 	public static int turnScorer(int newSquare) {
 		
-		if (boardArr[newSquare].equals("wp")) {
+		if (boardArr[newSquare] == 11) {
 			return 1;
-		} else if (boardArr[newSquare].equals("wr")) {
+		} else if (boardArr[newSquare] == 15) {
 			return 5;
-		} else if (boardArr[newSquare].equals("wb")) {
+		} else if (boardArr[newSquare] == 130) {
 			return 3;
-		} else if (boardArr[newSquare].equals("wk")) {
+		} else if (boardArr[newSquare] == 103) {
 			return 3;
-		} else if (boardArr[newSquare].equals("wq")) {
+		} else if (boardArr[newSquare] == 19) {
 			return 9;
-		} else if (boardArr[newSquare].equals("wk")) {
+		} else if (boardArr[newSquare] == 110) {
 			return 100;
 		}
 		return 0;
 	}
 	
 	public static int whiteTurnScorer(int newSquare) {
-		if (boardArr[newSquare].equals("bp")) {
+		if (boardArr[newSquare] == 21) {
 			return 1;
-		} else if (boardArr[newSquare].equals("br")) {
+		} else if (boardArr[newSquare] == 25) {
 			return 5;
-		} else if (boardArr[newSquare].equals("bb")) {
+		} else if (boardArr[newSquare] == 230) {
 			return 3;
-		} else if (boardArr[newSquare].equals("bk")) {
+		} else if (boardArr[newSquare] == 203) {
 			return 3;
-		} else if (boardArr[newSquare].equals("bq")) {
+		} else if (boardArr[newSquare] == 29) {
 			return 9;
-		} else if (boardArr[newSquare].equals("bk")) {
+		} else if (boardArr[newSquare] == 210) {
 			return 100;
 		}
 		return 0;
 	}
 	
-	public static int[] bestBlackMove(boolean last) {
+	public static int[] bestBlackMove(int count) {
 		int bestMoveVal = Integer.MIN_VALUE;
 		int bestMoveold = 0;
 		int bestMovenew = 0;
 		
 		LinkedList<Integer> nonPieces = new LinkedList<Integer>();
 		LinkedList<Integer> pieces = new LinkedList<Integer>();
+		for (int i = 0; i < 64; i++) {
+			if (boardArr[i] == 21 || boardArr[i] == 203 || boardArr[i] == 230 || boardArr[i] == 25 || boardArr[i] == 29 || boardArr[i] == 210) {
+				pieces.add(i);
+			} else {
+				nonPieces.add(i);
+			}
+		}
 		int minus = 0;
 		
-			if (boolBlackCheckMate() == true) {
-				int[] finisher = {0, 0, -1000};
-				return finisher;
-			}
-		
-		for (int i = 0; i < 64; i++) {
-			if (!(boardArr[i].equals("bp") || boardArr[i].equals("br") || boardArr[i].equals("bk") || boardArr[i].equals("bb") || boardArr[i].equals("bq") || boardArr[i].equals("bK"))) {
-				nonPieces.add(i);
-			} else if (!boardArr[i].equals("o")) {
-				pieces.add(i);
-			}
+		if (boolBlackCheckMate() == true) {
+			int[] finisher = {0, 0, -1000};
+			return finisher;
 		}
 		
 		for (int i = 0; i < pieces.size(); i++) {
-			if (boardArr[pieces.get(i)].equals("br")) {
+			if (boardArr[pieces.get(i)] == 21) {
 				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.rookPath(false, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (last == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "br";
-							minus = bestWhiteMove(false)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						} else if (last == true) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "br";
-							minus = wFinisher()[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
+					if (CheckPaths.blackPawnPath(true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 21;
+							minus = Board.bestWhiteMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
 						}
-						
 						if (Board.turnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
 							bestMoveVal = Board.turnScorer(nonPieces.get(j)) - minus;
 							bestMoveold = pieces.get(i);
 							bestMovenew = nonPieces.get(j);
 						}
+						minus = 0;
+					}
+					minus = 0;
+				}
+			} else if (boardArr[pieces.get(i)] == 203) {
+				for (int j = 0; j < nonPieces.size(); j++) {
+					if (CheckPaths.knightPath(false, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 203;
+							minus = Board.bestWhiteMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
+						}
+						if (Board.turnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
+							bestMoveVal = Board.turnScorer(nonPieces.get(j)) - minus;
+							bestMoveold = pieces.get(i);
+							bestMovenew = nonPieces.get(j);
+						}
+						minus = 0;
 					}
 				}
-			} else if (boardArr[pieces.get(i)].equals("bk")) {
+			} else if (boardArr[pieces.get(i)] == 230) {
 				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.knightPath(false, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (last == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bk";
-							minus = bestWhiteMove(false)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						} else if (last == true) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bk";
-							minus = wFinisher()[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
+					if (CheckPaths.bishopPath(false, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 230;
+							minus = Board.bestWhiteMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
 						}
 						if (Board.turnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
 							bestMoveVal = Board.turnScorer(nonPieces.get(j)) - minus;
 							bestMoveold = pieces.get(i);
 							bestMovenew = nonPieces.get(j);
 						}
+						minus = 0;
 					}
 				}
-			} else if (boardArr[pieces.get(i)].equals("bb")) {
+			} else if (boardArr[pieces.get(i)] == 25) {
 				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.bishopPath(false, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (last == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bb";
-							minus = bestWhiteMove(false)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						} else if (last == true) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bb";
-							minus = wFinisher()[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
+					if (CheckPaths.rookPath(false, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 25;
+							minus = Board.bestWhiteMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
 						}
 						if (Board.turnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
 							bestMoveVal = Board.turnScorer(nonPieces.get(j)) - minus;
 							bestMoveold = pieces.get(i);
 							bestMovenew = nonPieces.get(j);
 						}
+						minus = 0;
 					}
 				}
-			} else if (boardArr[pieces.get(i)].equals("bq")) {
+			} else if (boardArr[pieces.get(i)] == 29) {
 				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.rookPath(false, true, boardArr, pieces.get(i), nonPieces.get(j)) == true || CheckPaths.bishopPath(false, true, boardArr, (int) pieces.get(i), nonPieces.get(j)) == true) {
-						if (last == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bq";
-							minus = bestWhiteMove(false)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						} else if (last == true) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bq";
-							minus = wFinisher()[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
+					if (CheckPaths.rookPath(false, true, boardArr, pieces.get(i), nonPieces.get(j)) || CheckPaths.bishopPath(false, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 29;
+							minus = Board.bestWhiteMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
 						}
 						if (Board.turnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
 							bestMoveVal = Board.turnScorer(nonPieces.get(j)) - minus;
 							bestMoveold = pieces.get(i);
 							bestMovenew = nonPieces.get(j);
 						}
+						minus = 0;
 					}
 				}
-			} else if (boardArr[pieces.get(i)].equals("bK")) {
+			} else if (boardArr[pieces.get(i)] == 210) {
 				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.kingPath(false, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (last == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bK";
-							minus = bestWhiteMove(false)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						} else if (last == true) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bK";
-							minus = wFinisher()[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
+					if (CheckPaths.kingPath(false, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 210;
+							minus = Board.bestWhiteMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
 						}
 						if (Board.turnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
 							bestMoveVal = Board.turnScorer(nonPieces.get(j)) - minus;
 							bestMoveold = pieces.get(i);
 							bestMovenew = nonPieces.get(j);
 						}
-						//make sure it checks for check so that it cant just castle into check
-					} else if (bKingMoved == false && bRookMovedR == false && bCastled == false && pieces.get(i) == 4 && nonPieces.get(j) == 6 && boardArr[nonPieces.get(j) - 1].equals("o")) {
-						if (Board.turnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-							bestMoveVal = Board.turnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
-					}
-				}
-			} else if (boardArr[pieces.get(i)].equals("bp")) {
-				// check the j = i
-				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.blackPawnPath( true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (last == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bp";
-							minus = bestWhiteMove(false)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						} else if (last == true) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "bp";
-							minus = wFinisher()[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						}
-						if (Board.turnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-							bestMoveVal = Board.turnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
+						minus = 0;
 					}
 				}
 			}
 		}
+		
 		int[] finisher = {bestMoveold, bestMovenew, bestMoveVal};
 		return finisher;
 	}
 
-	public static int[] bestWhiteMove(boolean finish) {
+	public static int[] bestWhiteMove(int count) {
 		int bestMoveVal = Integer.MIN_VALUE;
 		int bestMoveold = 0;
 		int bestMovenew = 0;
 		
 		LinkedList<Integer> nonPieces = new LinkedList<Integer>();
 		LinkedList<Integer> pieces = new LinkedList<Integer>();
+		for (int i = 0; i < 64; i++) {
+			if (boardArr[i] == 11 || boardArr[i] == 103 || boardArr[i] == 130 || boardArr[i] == 15 || boardArr[i] == 19 || boardArr[i] == 110) {
+				pieces.add(i);
+			} else {
+				nonPieces.add(i);
+			}
+		}
 		int minus = 0;
 		
 		if (boolWhiteCheckMate() == true) {
 			int[] finisher = {0, 0, -1000};
 			return finisher;
 		}
-		for (int i = 0; i < 64; i++) {
-			if (!(boardArr[i].equals("wp") || boardArr[i].equals("wr") || boardArr[i].equals("wk") || boardArr[i].equals("wb") || boardArr[i].equals("wq") || boardArr[i].equals("wK"))) {
-				nonPieces.add(i);
-			} else if (!boardArr[i].equals("o")) {
-				pieces.add(i);
-			}
-		}
 		
 		for (int i = 0; i < pieces.size(); i++) {
-			if (boardArr[pieces.get(i)].equals("wr")) {
+			if (boardArr[pieces.get(i)] == 11) {
 				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.rookPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (finish == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "wr";
-							minus = bestBlackMove(true)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						}
-						
-						if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
-					}
-				}
-			} else if (boardArr[pieces.get(i)].equals("wk")) {
-				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.knightPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (finish == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "wk";
-							minus = bestBlackMove(true)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						}
-						
-						if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = (int) pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
-					}
-				}
-			} else if (boardArr[pieces.get(i)].equals("wb")) {
-				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.bishopPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (finish == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "wb";
-							minus = bestBlackMove(true)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
-						}
-						
-						if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
-					}
-				}
-			} else if (boardArr[pieces.get(i)].equals("wq")) {
-				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.rookPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true || CheckPaths.bishopPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (finish == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "wq";
-							minus = bestBlackMove(true)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
+					if (CheckPaths.pawnPath(true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 11;
+							minus = Board.bestBlackMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
 						}
 						if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
 							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
@@ -865,51 +716,93 @@ public class Board extends JFrame implements ActionListener{
 						}
 					}
 				}
-			} else if (boardArr[pieces.get(i)].equals("wK")) {
+			} else if (boardArr[pieces.get(i)] == 103) {
 				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.kingPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (finish == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "wK";
-							minus = bestBlackMove(true)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
+					if (CheckPaths.knightPath(true, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 103;
+							minus = Board.bestBlackMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
 						}
 						if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
 							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
 							bestMoveold = pieces.get(i);
 							bestMovenew = nonPieces.get(j);
 						}
-					} else if (wKingMoved == false && wRookMovedR == false && wCastled == false && pieces.get(i) == 60 && nonPieces.get(j) == 62 && boardArr[nonPieces.get(j) - 1].equals("o")) {
-						if (finish == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "wK";
-							minus = bestBlackMove(true)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
+					}
+				}
+			} else if (boardArr[pieces.get(i)] == 130) {
+				for (int j = 0; j < nonPieces.size(); j++) {
+					if (CheckPaths.bishopPath(true, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 130;
+							minus = Board.bestBlackMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
 						}
 						if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
 							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(pieces.get(i));
+							bestMoveold = pieces.get(i);
 							bestMovenew = nonPieces.get(j);
 						}
 					}
 				}
-			} else if (boardArr[pieces.get(i)].equals("wp")) {
+			} else if (boardArr[pieces.get(i)] == 15) {
 				for (int j = 0; j < nonPieces.size(); j++) {
-					if (CheckPaths.pawnPath(true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-						if (finish == false) {
-							String converter1 = boardArr[pieces.get(i)];
-							String converter2 = boardArr[nonPieces.get(j)];
-							boardArr[pieces.get(i)] = "o";
-							boardArr[nonPieces.get(j)] = "wp";
-							minus = bestBlackMove(true)[2];
-							boardArr[pieces.get(i)] = converter1;
-							boardArr[nonPieces.get(j)] = converter2;
+					if (CheckPaths.rookPath(true, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 15;
+							minus = Board.bestBlackMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
+						}
+						if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
+							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
+							bestMoveold = pieces.get(i);
+							bestMovenew = nonPieces.get(j);
+						}
+					}
+				}
+			} else if (boardArr[pieces.get(i)] == 19) {
+				for (int j = 0; j < nonPieces.size(); j++) {
+					if (CheckPaths.rookPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) || CheckPaths.bishopPath(true, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 19;
+							minus = Board.bestBlackMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
+						}
+						if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
+							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
+							bestMoveold = pieces.get(i);
+							bestMovenew = nonPieces.get(j);
+						}
+					}
+				}
+			} else if (boardArr[pieces.get(i)] == 110) {
+				for (int j = 0; j < nonPieces.size(); j++) {
+					if (CheckPaths.kingPath(true, true, boardArr, pieces.get(i), nonPieces.get(j))) {
+						if (count != 0) {
+							int converterOld = boardArr[pieces.get(i)];
+							int converterNew = boardArr[nonPieces.get(j)];
+							boardArr[pieces.get(i)] = 0;
+							boardArr[nonPieces.get(j)] = 110;
+							minus = Board.bestBlackMove(count - 1)[2];
+							boardArr[pieces.get(i)] = converterOld;
+							boardArr[nonPieces.get(j)] = converterNew;
 						}
 						if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
 							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
@@ -920,103 +813,7 @@ public class Board extends JFrame implements ActionListener{
 				}
 			}
 		}
-		int[] finisher = {bestMoveold, bestMovenew, bestMoveVal};
-		return finisher;
-	}
-	
-	public static int[] wFinisher() {
-		int bestMoveVal = Integer.MIN_VALUE;
-		int bestMoveold = 0;
-		int bestMovenew = 0;
 		
-		LinkedList<Integer> nonPieces = new LinkedList<Integer>();
-		LinkedList<Integer> pieces = new LinkedList<Integer>();
-		int minus = 0;
-		
-		
-		if (boolWhiteCheckMate() == true) {
-			int[] finisher = {0, 0, -1000};
-			return finisher;
-		}
-		for (int i = 0; i < 64; i++) {
-			if ((boardArr[i].equals("bp") || boardArr[i].equals("br") || boardArr[i].equals("bk") || boardArr[i].equals("bb") || boardArr[i].equals("bq") || boardArr[i].equals("bK"))) {
-				nonPieces.add(i);
-			} else if (!boardArr[i].equals("o")) {
-				pieces.add(i);
-			}
-		}
-		
-		
-		for (int i = 0; i < pieces.size(); i++) {
-			if (boardArr[pieces.get(i)].equals("wr")) {
-				for (int j = 0; j < nonPieces.size(); j++) {
-					if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-						if (CheckPaths.rookPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
-					}
-				}
-			} else if (boardArr[(int) pieces.get(i)].equals("wk")) {
-				for (int j = 0; j < nonPieces.size(); j++) {
-					if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-						if (CheckPaths.knightPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
-					}
-				}
-			} else if (boardArr[pieces.get(i)].equals("wb")) {
-				for (int j = 0; j < nonPieces.size(); j++) {
-					if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-						if (CheckPaths.bishopPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
-					}
-				}
-			} else if (boardArr[pieces.get(i)].equals("wq")) {
-				for (int j = 0; j < nonPieces.size(); j++) {
-					if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-						if (CheckPaths.rookPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true || CheckPaths.bishopPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
-					}
-				}
-			} else if (boardArr[pieces.get(i)].equals("wK")) {
-				for (int j = 0; j < nonPieces.size(); j++) {
-					if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-						if (CheckPaths.kingPath(true, true, boardArr, pieces.get(i), nonPieces.get(j)) == true) {
-							bestMoveVal = Board.whiteTurnScorer(nonPieces.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = nonPieces.get(j);
-						}
-					}
-				}
-			} else if (boardArr[pieces.get(i)].equals("wp")) {
-				LinkedList<Integer> pawns = new LinkedList<Integer>();
-				pawns.add(pieces.get(i) - 8);
-				if (pieces.get(i) > 47) {
-					pawns.add(pieces.get(i) - 16);
-				}
-				pawns.add(pieces.get(i) - 9);
-				pawns.add(pieces.get(i) - 7);
-				for (int j = 0; j < pawns.size(); j++) {
-					if (Board.whiteTurnScorer(nonPieces.get(j)) - minus > bestMoveVal) {
-						if (CheckPaths.pawnPath(true, boardArr, pieces.get(i), pawns.get(j)) == true) {
-							bestMoveVal = Board.whiteTurnScorer(pawns.get(j)) - minus;
-							bestMoveold = pieces.get(i);
-							bestMovenew = pawns.get(j);
-						}
-					}
-				}
-			}
-		}
 		int[] finisher = {bestMoveold, bestMovenew, bestMoveVal};
 		return finisher;
 	}
@@ -1033,15 +830,15 @@ public class Board extends JFrame implements ActionListener{
 		if (e.getSource() == rookB) {
 			if (pawnFinished == true) {
 				if (isBlackPawn == true) {
-					buttons[pawnFinish].setIcon(Brook);
-					boardArr[pawnFinish] = "br";
+					buttons[pawnFinish].setIcon(BLACK_ROOK);
+					boardArr[pawnFinish] = 25;
 				} else {
-					buttons[pawnFinish].setIcon(rook);
-					boardArr[pawnFinish] = "wr";
+					buttons[pawnFinish].setIcon(ROOK);
+					boardArr[pawnFinish] = 15;
 				}
 				isBlackPawn = false;
 				buttons[pawnFinishOld].setIcon(null);
-				boardArr[pawnFinishOld] = "o";
+				boardArr[pawnFinishOld] = 0;
 				pawnS.dispose();
 				pawnFinished = false;
 			}
@@ -1049,15 +846,15 @@ public class Board extends JFrame implements ActionListener{
 		if (e.getSource() == queenB) {
 			if (pawnFinished == true) {
 				if (isBlackPawn == true) {
-					buttons[pawnFinish].setIcon(Bqueen);
-					boardArr[pawnFinish] = "bq";
+					buttons[pawnFinish].setIcon(BLACK_QUEEN);
+					boardArr[pawnFinish] = 29;
 				} else {
-					buttons[pawnFinish].setIcon(queen);
-					boardArr[pawnFinish] = "wq";
+					buttons[pawnFinish].setIcon(QUEEN);
+					boardArr[pawnFinish] = 19;
 				}
 				isBlackPawn = false;
 				buttons[pawnFinishOld].setIcon(null);
-				boardArr[pawnFinishOld] = "o";
+				boardArr[pawnFinishOld] = 0;
 				pawnS.dispose();
 				pawnFinished = false;
 			}
@@ -1065,15 +862,15 @@ public class Board extends JFrame implements ActionListener{
 		if (e.getSource() == knightB) {
 			if (pawnFinished == true) {
 				if (isBlackPawn == true) {
-					buttons[pawnFinish].setIcon(Bknight);
-					boardArr[pawnFinish] = "bk";
+					buttons[pawnFinish].setIcon(BLACK_KNIGHT);
+					boardArr[pawnFinish] = 203;
 				} else {
-					buttons[pawnFinish].setIcon(knight);
-					boardArr[pawnFinish] = "wk";
+					buttons[pawnFinish].setIcon(KNIGHT);
+					boardArr[pawnFinish] = 103;
 				}
 				isBlackPawn = false;
 				buttons[pawnFinishOld].setIcon(null);
-				boardArr[pawnFinishOld] = "o";
+				boardArr[pawnFinishOld] = 0;
 				pawnS.dispose();
 				pawnFinished = false;
 			}
@@ -1081,15 +878,15 @@ public class Board extends JFrame implements ActionListener{
 		if (e.getSource() == bishopB) {
 			if (pawnFinished == true) {
 				if (isBlackPawn == true) {
-					buttons[pawnFinish].setIcon(Bbishop);
-					boardArr[pawnFinish] = "bb";
+					buttons[pawnFinish].setIcon(BLACK_BISHOP);
+					boardArr[pawnFinish] = 230;
 				} else {
-					buttons[pawnFinish].setIcon(bishop);
-					boardArr[pawnFinish] = "wb";
+					buttons[pawnFinish].setIcon(BISHOP);
+					boardArr[pawnFinish] = 130;
 				}
 				isBlackPawn = false;
 				buttons[pawnFinishOld].setIcon(null);
-				boardArr[pawnFinishOld] = "o";
+				boardArr[pawnFinishOld] = 0;
 				pawnS.dispose();
 				pawnFinished = false;
 			}
@@ -1103,7 +900,7 @@ public class Board extends JFrame implements ActionListener{
 			for (int i = 0; i < 64; i++)
 			if (e.getSource() == buttons[i]) {
 				//SETUP WHITE
-				if (boardArr[i].equals("wp")) {
+				if (boardArr[i] == 11) {
 					replacer = i;
 					hasPawn = true;
 					hasRook = false;
@@ -1174,7 +971,7 @@ public class Board extends JFrame implements ActionListener{
 						}
 					}
 					
-				} else if (boardArr[i].equals("wr")) {
+				} else if (boardArr[i] == 15) {
 					replacer = i;
 					hasPawn = false;
 					hasRook = true;
@@ -1194,7 +991,7 @@ public class Board extends JFrame implements ActionListener{
 							}
 						}
 					}
-				} else if (boardArr[i].equals("wb")) {
+				} else if (boardArr[i] == 130) {
 					replacer = i;
 					hasPawn = false;
 					hasRook = false;
@@ -1214,7 +1011,7 @@ public class Board extends JFrame implements ActionListener{
 							}
 						}
 					}
-				} else if (boardArr[i].equals("wq")) {
+				} else if (boardArr[i] == 19) {
 					replacer = i;
 					hasPawn = false;
 					hasRook = false;
@@ -1242,14 +1039,13 @@ public class Board extends JFrame implements ActionListener{
 							}
 						}
 					}
-				} else if (boardArr[i].equals("wk")) {
+				} else if (boardArr[i] == 103) {
 					replacer = i;
 					hasPawn = false;
 					hasRook = false;
 					hasQueen = false;
 					hasBishop = false;
-					hasKnight = true;
-					hasKing = false;
+					hasKnight = true;					hasKing = false;
 					resetButtonColour();
 					path.clear();
 					for (int j = 0; j < 64; j++) {
@@ -1262,14 +1058,13 @@ public class Board extends JFrame implements ActionListener{
 							}
 						}
 					}
-				} else if (boardArr[i].equals("wK")){
+				} else if (boardArr[i] == 110){
 					replacer = i;
 					hasPawn = false;
 					hasRook = false;
 					hasQueen = false;
 					hasBishop = false;
-					hasKnight = false;
-					hasKing = true;
+					hasKnight = false; hasKing = true;
 					resetButtonColour();
 					path.clear();
 					for (int j = 0; j < 64; j++) {
@@ -1295,20 +1090,20 @@ public class Board extends JFrame implements ActionListener{
 						whiteMove = false;
 						hasPawn = false;
 					} else if (canMove == true) {
-						buttons[i].setIcon(pawn);
-						boardArr[i] = "wp";
+						buttons[i].setIcon(PAWN);
+						boardArr[i] = 11;
 						hasPawn = false;
 						resetButtonColour();
 						buttons[replacer].setIcon(null);
-						boardArr[replacer] = "o";
+						boardArr[replacer] = 0;
 						whiteMove = false;
 					}
 					
 				//ROOK MOVES
 					
 				} else if (hasRook == true && path.contains(i)) {
-					buttons[i].setIcon(rook);
-					boardArr[i] = "wr";
+					buttons[i].setIcon(ROOK);
+					boardArr[i] = 15;
 					hasRook = false;
 					resetButtonColour();
 					if (replacer == 63) {
@@ -1317,80 +1112,80 @@ public class Board extends JFrame implements ActionListener{
 						wRookMovedL = true;
 					}
 					buttons[replacer].setIcon(null);
-					boardArr[replacer] = "o";
+					boardArr[replacer] = 0;
 					whiteMove = false;
 				
 				// BISHOP MOVES
 				} else if (hasBishop == true) {
 					boolean canMove = (path.contains(i));
 					if (canMove == true) {
-						buttons[i].setIcon(bishop);
-						boardArr[i] = "wb";
+						buttons[i].setIcon(BISHOP);
+						boardArr[i] = 130;
 						hasBishop = false;
 						resetButtonColour();
 						buttons[replacer].setIcon(null);
-						boardArr[replacer] = "o";
+						boardArr[replacer] = 0;
 						whiteMove = false;
 					}
 				}
 				
 				//QUEEN MOVES
 				else if (hasQueen == true && path.contains(i)){
-					buttons[i].setIcon(queen);
-					boardArr[i] = "wq";
+					buttons[i].setIcon(QUEEN);
+					boardArr[i] = 19;
 					hasQueen = false;
 					resetButtonColour();
 					buttons[replacer].setIcon(null);
-					boardArr[replacer] = "o";
+					boardArr[replacer] = 0;
 					whiteMove = false;
 				}
 				
 				// KNIGHT MOVES
 				else if (hasKnight == true && path.contains(i)){
-					buttons[i].setIcon(knight);
-					boardArr[i] = "wk";
+					buttons[i].setIcon(KNIGHT);
+					boardArr[i] = 103;
 					hasKnight = false;
 					resetButtonColour();
 					buttons[replacer].setIcon(null);
-					boardArr[replacer] = "o";
+					boardArr[replacer] = 0;
 					whiteMove = false;
 				}
 				
 				// KING MOVES
-				else if (hasKing == true && i == 62 && wKingMoved == false && wRookMovedR == false && wCastled == false && hasKing == true && replacer == 60 && i == 62 && boardArr[i - 1].equals("o") && CheckPaths.kingPath(true, true, boardArr, replacer, i)) {
-					buttons[i].setIcon(king);
-					boardArr[i] = "wK";
+				 if (hasKing == true && i == 62 && wKingMoved == false && wRookMovedR == false && wCastled ==  false && hasKing == true && replacer == 60 && i == 62 && boardArr[i - 1] == 0 && CheckPaths.kingPath(true, true, boardArr, replacer, i)) {
+					buttons[i].setIcon(KING);
+					boardArr[i] = 110;
 					hasKing = false;
 					resetButtonColour();
 					buttons[replacer].setIcon(null);
-					boardArr[replacer] = "o";
-					boardArr[63] = "o";
-					boardArr[61] = "wr";
+					boardArr[replacer] = 0;
+					boardArr[63] = 0;
+					boardArr[61] = 15;
 					buttons[63].setIcon(null);
-					buttons[61].setIcon(rook);
+					buttons[61].setIcon(ROOK);
 					wCastled = false;
 					whiteMove = false;
 					//Castle queen side
-				} else if (hasKing == true && i == 58 && wKingMoved == false && wRookMovedL == false && wCastled == false && hasKing == true && replacer == 60 && i == 58 && boardArr[59].equals("o") && boardArr[58].equals("o") && boardArr[57].equals("o") && CheckPaths.kingPath(true, true, boardArr, replacer, i)) {
-					buttons[i].setIcon(king);
-					boardArr[i] = "wK";
+				}  else if (hasKing == true && i == 58 && wKingMoved == false && wRookMovedL == false && wCastled ==  false && hasKing == true && replacer == 60 && i == 58 && boardArr[59] == 0 && boardArr[58] == 0 && boardArr[57] == 0 && CheckPaths.kingPath(true, true, boardArr, replacer, i)) {
+					buttons[i].setIcon(KING);
+					boardArr[i] = 110;
 					hasKing = false;
 					resetButtonColour();
 					buttons[replacer].setIcon(null);
-					boardArr[replacer] = "o";
-					boardArr[56] = "o";
-					boardArr[59] = "wr";
+					boardArr[replacer] = 0;
+					boardArr[56] = 0;
+					boardArr[59] = 15;
 					buttons[56].setIcon(null);
-					buttons[59].setIcon(rook);
+					buttons[59].setIcon(ROOK);
 					wCastled = true; //Probs dont need this
 					whiteMove = false;
-				} else if (hasKing == true && path.contains(i)){
-					buttons[i].setIcon(king);
-					boardArr[i] = "wK";
+				}  else if (hasKing == true && path.contains(i)){
+					buttons[i].setIcon(KING);
+					boardArr[i] = 110;
 					hasKing = false;
 					resetButtonColour();
 					buttons[replacer].setIcon(null);
-					boardArr[replacer] = "o";
+					boardArr[replacer] = 0;
 					wKingMoved = true;
 					whiteMove = false;
 				}
@@ -1411,14 +1206,14 @@ public class Board extends JFrame implements ActionListener{
 		for (int i = 0; i < 64; i++)
 		if (e.getSource() == buttons[i]) {
 			//SETUP BLACK
-			if (boardArr[i].equals("bp")) {
+			if (boardArr[i] == 21) {
 				replacer = i;
-				hasPawnB = true;
-				hasRookB = false;
-				hasQueenB = false;
-				hasKnightB = false;
-				hasBishopB = false;
-				hasKingB = false;
+				hasBlackPawn = true;
+				hasBlackRook = false;
+				hasBlackQueen = false;
+				hasBlackKnight = false;
+				hasBlackBishop = false;
+				hasBlackKing = false;
 				resetButtonColour();
 				for (int j = 0; j < 64; j++) {
 					if (CheckPaths.blackPawnPath(true, boardArr, replacer, j)) {
@@ -1429,14 +1224,14 @@ public class Board extends JFrame implements ActionListener{
 						}
 					}
 				}
-			} else if (boardArr[i].equals("br")) {
+			} else if (boardArr[i] == 25) {
 				replacer = i;
-				hasPawnB = false;
-				hasRookB = true;
-				hasBishopB = false;
-				hasKnightB = false;
-				hasQueenB = false;
-				hasKingB = false;
+				hasBlackPawn = false;
+				hasBlackRook = true;
+				hasBlackBishop = false;
+				hasBlackKnight = false;
+				hasBlackQueen = false;
+				hasBlackKing = false;
 				resetButtonColour();
 				for (int j = 0; j < 64; j++) {
 					if (CheckPaths.rookPath(false, true, boardArr, replacer, j)) {
@@ -1447,14 +1242,14 @@ public class Board extends JFrame implements ActionListener{
 						}
 					}
 				}
-			} else if (boardArr[i].equals("bb")) {
+			} else if (boardArr[i] == 230) {
 				replacer = i;
-				hasPawnB = false;
-				hasRookB = false;
-				hasQueenB = false;
-				hasBishopB = true;
-				hasKnightB = false;
-				hasKingB = false;
+				hasBlackPawn = false;
+				hasBlackRook = false;
+				hasBlackQueen = false;
+				hasBlackBishop = true;
+				hasBlackKnight = false;
+				hasBlackKing = false;
 				resetButtonColour();
 				for (int j = 0; j < 64; j++) {
 					if (CheckPaths.bishopPath(false, true, boardArr, replacer, j)) {
@@ -1465,14 +1260,14 @@ public class Board extends JFrame implements ActionListener{
 						}
 					}
 				}
-			} else if (boardArr[i].equals("bq")) {
+			} else if (boardArr[i] == 29) {
 				replacer = i;
-				hasPawnB = false;
-				hasRookB = false;
-				hasBishopB = false;
-				hasQueenB = true;
-				hasKnightB = false;
-				hasKingB = false;
+				hasBlackPawn = false;
+				hasBlackRook = false;
+				hasBlackBishop = false;
+				hasBlackQueen = true;
+				hasBlackKnight = false;
+				hasBlackKing = false;
 				resetButtonColour();
 				for (int j = 0; j < 64; j++) {
 					if (CheckPaths.bishopPath(false, true, boardArr, replacer, j)) {
@@ -1490,14 +1285,14 @@ public class Board extends JFrame implements ActionListener{
 						}
 					}
 				}
-			} else if (boardArr[i].equals("bk")) {
+			} else if (boardArr[i] == 203) {
 				replacer = i;
-				hasPawnB = false;
-				hasRookB = false;
-				hasQueenB = false;
-				hasBishopB = false;
-				hasKnightB = true;
-				hasKingB = false;
+				hasBlackPawn = false;
+				hasBlackRook = false;
+				hasBlackQueen = false;
+				hasBlackBishop = false;
+				hasBlackKnight = true;
+				hasBlackKing = false;
 				resetButtonColour();
 				for (int j = 0; j < 64; j++) {
 					if (CheckPaths.knightPath(false, true, boardArr, replacer, j)) {
@@ -1508,14 +1303,14 @@ public class Board extends JFrame implements ActionListener{
 						}
 					}
 				}
-			} else if (boardArr[i].equals("bK")){
+			} else if (boardArr[i] == 210){
 				replacer = i;
-				hasPawnB = false;
-				hasRookB = false;
-				hasQueenB = false;
-				hasBishopB = false;
-				hasKnightB = false;
-				hasKingB = true;
+				hasBlackPawn = false;
+				hasBlackRook = false;
+				hasBlackQueen = false;
+				hasBlackBishop = false;
+				hasBlackKnight = false;
+				hasBlackKing = true;
 				resetButtonColour();
 				for (int j = 0; j < 64; j++) {
 					if (CheckPaths.kingPath(false, true, boardArr, replacer, j)) {
@@ -1527,28 +1322,28 @@ public class Board extends JFrame implements ActionListener{
 					}
 				}
 			//PAWN MOVES
-			} else if (hasPawnB == true && CheckPaths.blackPawnPath(true, boardArr, replacer, i) && i > 56 && i < 64) {
+			} else if (hasBlackPawn == true && CheckPaths.blackPawnPath(true, boardArr, replacer, i) && i > 56 && i < 64) {
 				pawnFinish = i;
 				pawnFinished = true;
 				isBlackPawn = true;
 				pawnFinishOld = replacer;
 				pawnFinisher(i);
 				whiteMove = true;
-			} else if (hasPawnB == true && CheckPaths.blackPawnPath(true, boardArr, replacer, i)) {
-				buttons[i].setIcon(Bpawn);
-				boardArr[i] = "bp";
-				hasPawnB = false;
+			} else if (hasBlackPawn == true && CheckPaths.blackPawnPath(true, boardArr, replacer, i)) {
+				buttons[i].setIcon(BLACK_PAWN);
+				boardArr[i] = 21;
+				hasBlackPawn = false;
 				resetButtonColour();
 				buttons[replacer].setIcon(null);
-				boardArr[replacer] = "o";
+				boardArr[replacer] = 0;
 				whiteMove = true;
 				
 			//ROOK MOVES
 				
-			} else if (hasRookB == true && CheckPaths.rookPath(false, true, boardArr, replacer, i)) { //THIS LINE
-				buttons[i].setIcon(Brook);
-				boardArr[i] = "br";
-				hasRookB = false;
+			} else if (hasBlackRook == true && CheckPaths.rookPath(false, true, boardArr, replacer, i)) { //THIS LINE
+				buttons[i].setIcon(BLACK_ROOK);
+				boardArr[i] = 25;
+				hasBlackRook = false;
 				resetButtonColour();
 				if (replacer == 7) {
 					bRookMovedR = true;
@@ -1556,78 +1351,78 @@ public class Board extends JFrame implements ActionListener{
 					bRookMovedL = true;
 				}
 				buttons[replacer].setIcon(null);
-				boardArr[replacer] = "o";
+				boardArr[replacer] = 0;
 				whiteMove = true;
 			
 			// BISHOP MOVES
-			} else if (hasBishopB == true && CheckPaths.bishopPath(false, true, boardArr, replacer, i)) {
-				buttons[i].setIcon(Bbishop);
-				boardArr[i] = "bb";
-				hasBishopB = false;
+			} else if (hasBlackBishop == true && CheckPaths.bishopPath(false, true, boardArr, replacer, i)) {
+				buttons[i].setIcon(BLACK_BISHOP);
+				boardArr[i] = 230;
+				hasBlackBishop = false;
 				resetButtonColour();
 				buttons[replacer].setIcon(null);
-				boardArr[replacer] = "o";
+				boardArr[replacer] = 0;
 				whiteMove = true;
 			}
 			
 			//QUEEN MOVES
-			else if (hasQueenB == true && (CheckPaths.bishopPath(false, true, boardArr, replacer, i) || CheckPaths.rookPath(false, true, boardArr, replacer, i))){
-				buttons[i].setIcon(Bqueen);
-				boardArr[i] = "bq";
-				hasQueenB = false;
+			else if (hasBlackQueen == true && (CheckPaths.bishopPath(false, true, boardArr, replacer, i) || CheckPaths.rookPath(false, true, boardArr, replacer, i))){
+				buttons[i].setIcon(BLACK_QUEEN);
+				boardArr[i] = 29;
+				hasBlackQueen = false;
 				resetButtonColour();
 				buttons[replacer].setIcon(null);
-				boardArr[replacer] = "o";
+				boardArr[replacer] = 0;
 				whiteMove = true;
 			}
 			
 			// KNIGHT MOVES
-			else if (hasKnightB == true && CheckPaths.knightPath(false, true, boardArr, replacer, i)){
-				buttons[i].setIcon(Bknight);
-				boardArr[i] = "bk";
-				hasKnightB = false;
+			else if (hasBlackKnight == true && CheckPaths.knightPath(false, true, boardArr, replacer, i)){
+				buttons[i].setIcon(BLACK_KNIGHT);
+				boardArr[i] = 203;
+				hasBlackKnight = false;
 				resetButtonColour();
 				buttons[replacer].setIcon(null);
-				boardArr[replacer] = "o";
+				boardArr[replacer] = 0;
 				whiteMove = true;
 			}
 			
 			// KING MOVES
-			 else if (hasKingB == true && CheckPaths.kingPath(false, true, boardArr, replacer, i) && replacer == 4 && i == 6) {
-				buttons[6].setIcon(Bking);
-				boardArr[6] = "bK";
-				hasKingB = false;
+			 else if (hasBlackKing == true && CheckPaths.kingPath(false, true, boardArr, replacer, i) && replacer == 4 && i == 6) {
+				buttons[6].setIcon(BLACK_KING);
+				boardArr[6] = 210;
+				hasBlackKing = false;
 				resetButtonColour();
 				buttons[replacer].setIcon(null);
-				boardArr[replacer] = "o";
-				boardArr[7] = "o";
-				boardArr[5] = "br";
+				boardArr[replacer] = 0;
+				boardArr[7] = 0;
+				boardArr[5] = 25;
 				buttons[7].setIcon(null);
-				buttons[5].setIcon(Brook);
+				buttons[5].setIcon(BLACK_ROOK);
 				bCastled = true;
 				whiteMove = true;
 				//Castle queen side
-			}  else if (hasKingB == true && CheckPaths.kingPath(false, true, boardArr, replacer, i) && replacer == 4 && i == 2) {
-				buttons[i].setIcon(Bking);
-				boardArr[i] = "bK";
-				hasKingB = false;
+			}  else if (hasBlackKing == true && CheckPaths.kingPath(false, true, boardArr, replacer, i) && replacer == 4 && i == 2) {
+				buttons[i].setIcon(BLACK_KING);
+				boardArr[i] = 210;
+				hasBlackKing = false;
 				resetButtonColour();
 				buttons[replacer].setIcon(null);
-				boardArr[replacer] = "o";
-				boardArr[0] = "o";
-				boardArr[3] = "br";
+				boardArr[replacer] = 0;
+				boardArr[0] = 0;
+				boardArr[3] = 25;
 				buttons[0].setIcon(null);
-				buttons[3].setIcon(Brook);
+				buttons[3].setIcon(BLACK_ROOK);
 				bCastled = true; //Probs dont need this
 				whiteMove = true;
-			} else if (hasKingB == true && CheckPaths.kingPath(false, true, boardArr, replacer, i)){
-				buttons[i].setIcon(Bking);
-				boardArr[i] = "bK";
-				hasKingB = false;
+			} else if (hasBlackKing == true && CheckPaths.kingPath(false, true, boardArr, replacer, i)){
+				buttons[i].setIcon(BLACK_KING);
+				boardArr[i] = 210;
+				hasBlackKing = false;
 				bKingMoved = true;
 				resetButtonColour();
 				buttons[replacer].setIcon(null);
-				boardArr[replacer] = "o";
+				boardArr[replacer] = 0;
 				whiteMove = true;
 				//Castle
 			}
@@ -1638,41 +1433,41 @@ public class Board extends JFrame implements ActionListener{
 				
 				//// AIIIIIII BABYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 					
-					int[] klin = Board.bestBlackMove(false);
+					int[] klin = Board.bestBlackMove(3);
 					int choice = klin[0];
 					int newMove = klin[1];
 					
 							
-					if (boardArr[choice].equals("bp")) {
-						buttons[newMove].setIcon(Bpawn);
-						boardArr[newMove] = "bp";
+					if (boardArr[choice] == 21) {
+						buttons[newMove].setIcon(BLACK_PAWN);
+						boardArr[newMove] = 21;
 						resetButtonColour();
 						buttons[newMove].setBackground(new Color(180, 167, 0));
 						buttons[choice].setBackground(new Color(180, 167, 0));
 						buttons[choice].setIcon(null);
-						boardArr[choice] = "o";
+						boardArr[choice] = 0;
 						whiteMove = true;
-					} else if (boardArr[choice].equals("bk")) {
-						buttons[newMove].setIcon(Bknight);
-						boardArr[newMove] = "bk";
+					} else if (boardArr[choice] == 203) {
+						buttons[newMove].setIcon(BLACK_KNIGHT);
+						boardArr[newMove] = 203;
 						resetButtonColour();
 						buttons[newMove].setBackground(new Color(180, 167, 0));
 						buttons[choice].setBackground(new Color(180, 167, 0));
 						buttons[choice].setIcon(null);
-						boardArr[choice] = "o";
+						boardArr[choice] = 0;
 						whiteMove = true;
-					} else if (boardArr[choice].equals("bb")) {
-						buttons[newMove].setIcon(Bbishop);
-						boardArr[newMove] = "bb";
+					} else if (boardArr[choice] == 230) {
+						buttons[newMove].setIcon(BLACK_BISHOP);
+						boardArr[newMove] = 230;
 						resetButtonColour();
 						buttons[newMove].setBackground(new Color(180, 167, 0));
 						buttons[choice].setBackground(new Color(180, 167, 0));
 						buttons[choice].setIcon(null);
-						boardArr[choice] = "o";
+						boardArr[choice] = 0;
 						whiteMove = true;
-					} else if (boardArr[choice].equals("br")) {
-						buttons[newMove].setIcon(Brook);
-						boardArr[newMove] = "br";
+					} else if (boardArr[choice] == 25) {
+						buttons[newMove].setIcon(BLACK_ROOK);
+						boardArr[newMove] = 25;
 						resetButtonColour();
 						buttons[newMove].setBackground(new Color(180, 167, 0));
 						buttons[choice].setBackground(new Color(180, 167, 0));
@@ -1682,51 +1477,51 @@ public class Board extends JFrame implements ActionListener{
 							bRookMovedL = true;
 						}
 						buttons[choice].setIcon(null);
-						boardArr[choice] = "o";
+						boardArr[choice] = 0;
 						whiteMove = true;
-					}  else if (boardArr[choice].equals("bq")) {
-						buttons[newMove].setIcon(Bqueen);
-						boardArr[newMove] = "bq";
+					}  else if (boardArr[choice] == 29) {
+						buttons[newMove].setIcon(BLACK_QUEEN);
+						boardArr[newMove] = 29;
 						resetButtonColour();
 						buttons[newMove].setBackground(new Color(180, 167, 0));
 						buttons[choice].setBackground(new Color(180, 167, 0));
 						buttons[choice].setIcon(null);
-						boardArr[choice] = "o";
+						boardArr[choice] = 0;
 						whiteMove = true;
-					} else if (boardArr[choice].equals("bK")) {
+					} else if (boardArr[choice] == 210) {
 						if (bKingMoved == false && bRookMovedR == false && bCastled == false && choice == 4 && newMove == 6) {
-							buttons[newMove].setIcon(Bking);
-							boardArr[newMove] = "bK";
+							buttons[newMove].setIcon(BLACK_KING);
+							boardArr[newMove] = 210;
 							resetButtonColour();
 							buttons[choice].setIcon(null);
-							boardArr[choice] = "o";
+							boardArr[choice] = 0;
 							
-							boardArr[7] = "o";
-							boardArr[5] = "br";
+							boardArr[7] = 0;
+							boardArr[5] = 25;
 							buttons[7].setIcon(null);
-							buttons[5].setIcon(Brook);
+							buttons[5].setIcon(BLACK_ROOK);
 							bKingMoved = true;
 							whiteMove = true;
 						} else if (choice == 4 && newMove == 2) {
-							buttons[newMove].setIcon(Bking);
-							boardArr[newMove] = "bK";
+							buttons[newMove].setIcon(BLACK_KING);
+							boardArr[newMove] = 210;
 							resetButtonColour();
 							buttons[choice].setIcon(null);
-							boardArr[choice] = "o";
-							boardArr[0] = "o";
-							boardArr[3] = "br";
+							boardArr[choice] = 0;
+							boardArr[0] = 0;
+							boardArr[3] = 25;
 							buttons[0].setIcon(null);
-							buttons[3].setIcon(Brook);
+							buttons[3].setIcon(BLACK_ROOK);
 							bKingMoved = true;
 							whiteMove = true;
 						} else {
-							buttons[newMove].setIcon(Bking);
-							boardArr[newMove] = "bK";
+							buttons[newMove].setIcon(BLACK_KING);
+							boardArr[newMove] = 210;
 							resetButtonColour();
 							buttons[newMove].setBackground(new Color(180, 167, 0));
 							buttons[choice].setBackground(new Color(180, 167, 0));
 							buttons[choice].setIcon(null);
-							boardArr[choice] = "o";
+							boardArr[choice] = 0;
 							bKingMoved = true;
 							whiteMove = true;
 						}
