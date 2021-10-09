@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-import java.awt.Color;
 import java.lang.Math.*;
 
 public class CheckPaths {
@@ -121,7 +119,6 @@ public class CheckPaths {
 		}
 		
 		int col = oldSquare % 8;
-		int row = oldSquare / 8;
 		boolean isLegal = false;
 
 		if (check == true) {
@@ -189,7 +186,6 @@ public class CheckPaths {
 	
 	public static boolean kingPath(boolean isWhite, boolean check, int[] boardArr, int oldSquare, int newSquare) {
 		int col = oldSquare % 8;
-		int row = oldSquare / 8;
 		boolean isLegal = false;
 		
 		if ((newSquare != (oldSquare + 8)) && (newSquare != (oldSquare - 8)) && (newSquare != (oldSquare + 9)) && (newSquare != (oldSquare - 9)) && (newSquare != (oldSquare + 7)) && (newSquare != (oldSquare - 7)) && (newSquare != (oldSquare + 1)) && (newSquare != (oldSquare - 1)) && (newSquare != (oldSquare + 2)) && (newSquare != (oldSquare - 2))) {
@@ -287,7 +283,7 @@ public class CheckPaths {
 		if (newSquare != oldSquare - 8 && newSquare != oldSquare - 7 && newSquare != oldSquare - 9 && newSquare != oldSquare - 16) {
 			return false;
 		}
-		if ( boardArr[newSquare] == 11 || boardArr[newSquare] == 15 ||boardArr[newSquare] == 130 ||boardArr[newSquare] == 103 ||boardArr[newSquare] == 19 ||boardArr[newSquare] == 110) {
+		if (boardArr[newSquare] == 11 || boardArr[newSquare] == 15 ||boardArr[newSquare] == 130 ||boardArr[newSquare] == 103 ||boardArr[newSquare] == 19 ||boardArr[newSquare] == 110) {
 			return false;
 		}
 		
@@ -380,7 +376,6 @@ public class CheckPaths {
 		int maxRow = 7;
 		int minCol = 0;
 		int minRow = 0;
-		boolean isLegal = false;
 		
 		//do quick check if false to save time looking
 		
@@ -459,9 +454,6 @@ public class CheckPaths {
 	}
 	
 	public static boolean bishopPath(boolean isWhite, boolean check, int[] boardArr, int oldSquare, int newSquare) {
-		if (newSquare % 8 == oldSquare % 8 && newSquare / 8 == oldSquare / 8) {
-			return false;
-		}
 		if (Math.abs((newSquare % 8) - (oldSquare % 8)) != Math.abs((newSquare / 8) - (oldSquare / 8))) {
 			return false;
 		}
