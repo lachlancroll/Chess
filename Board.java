@@ -490,8 +490,7 @@ public class Board extends JFrame implements ActionListener{
 		}
 	}
 	
-	public static int turnScorer(int newSquare) {
-		
+	public static int turnScorer(int newSquare) {	
 		if (boardArr[newSquare] == 11) {
 			return 1;
 		} else if (boardArr[newSquare] == 15) {
